@@ -7,11 +7,12 @@ import logging
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-logging.basicConfig(filename='../log/msg.log', filemode='a', level=logging.INFO)
+logging.basicConfig(
+    format='%(levelname)s:%(message)s',
+    filename='../log/msg.log',
+    filemode='w',
+    level=logging.INFO
+)
 
 
 TOKEN_BOT = os.environ.get("TOKEN")
-
-
-def logger(level:int, text:str) -> None:
-    logging.level(text)

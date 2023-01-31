@@ -2,8 +2,7 @@
 import sys
 
 from handler.start_polling import start_polling
-from models.models import init_database
-
+from models.models import init_database, create_migrate
 
 
 def main():
@@ -12,9 +11,10 @@ def main():
         return None
     match sys.argv[1]:
         case "migrate":
-            init_database()
+            create_migrate()
             print("Создание таблиц прошло успешно")
         case "runserver":
+            init_database()
             start_polling()
         case _:
             print("Введите доступные аргументы")
