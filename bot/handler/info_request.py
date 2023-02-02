@@ -2,17 +2,19 @@ from aiogram import types
 from aiogram import Dispatcher
 from aiogram.dispatcher.filters import Text
 
+from controller.info_controller import InfoController
+
 
 async def cmd_menu(message: types.Message):
-    await message.answer(text="Меню")
+    await InfoController(message).menu()
 
 
 async def cmd_info(message: types.Message):
-    await message.answer(text="Инфа")
+    await InfoController(message).info()
 
 
 async def cmd_about(message: types.Message):
-    await message.answer(text="Об авторе")
+    await InfoController(message).about()
 
 
 def setup(dp: Dispatcher):

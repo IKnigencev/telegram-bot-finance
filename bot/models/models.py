@@ -1,3 +1,9 @@
+"""Файл для работы с бд и моделями.
+
+- Создание таблиц в бд;
+- Подключение к бд;
+- Определение основных моделей бд;
+"""
 import datetime
 
 from peewee import (
@@ -6,14 +12,20 @@ from peewee import (
     CharField,
     DateTimeField,
     ForeignKeyField,
+    PostgresqlDatabase,
     SqliteDatabase
 )
 
+from settings.settings import ENV
 
-db = SqliteDatabase('my_project.db')
+if ENV == "develop":
+    db = SqliteDatabase('./bot/my_project.db')
+else:
+    db = PostgresqlDatabase()
 
 
 class MixinConfig(Model):
+    """Общий класс моделей"""
     created = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
@@ -22,6 +34,8 @@ class MixinConfig(Model):
 
 
 class User(MixinConfig):
+    """Класс сохранения юзеров"""
+
     id_telegram = IntegerField(unique=True, index=True)
     name = CharField(max_length=100)
     last_name = CharField(max_length=150)
@@ -34,6 +48,8 @@ class User(MixinConfig):
 
 
 class TransactionModels(MixinConfig):
+    """Класс сохранения транзакций"""
+
     user = ForeignKeyField(User, to_field='id')
     type_transaction = CharField()
     sum_transaction = IntegerField()

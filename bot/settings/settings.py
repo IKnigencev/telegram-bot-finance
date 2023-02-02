@@ -16,3 +16,7 @@ logging.basicConfig(
 
 
 TOKEN_BOT = os.environ.get("TOKEN")
+
+# Переменная определяет базу данных
+# для разработки SQLite, для production PostgresSQL
+ENV = "develop"

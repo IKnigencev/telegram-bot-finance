@@ -1,5 +1,6 @@
 import asyncio
 from aiogram import Bot, Dispatcher, types
+from aiogram.dispatcher.filters import Text
 
 from settings.settings import TOKEN_BOT
 from controller.start_controller import StartController
@@ -21,6 +22,11 @@ async def cmd_start(message: types.Message):
 
 @dp.message_handler(commands=["help"])
 async def cmd_help(message: types.Message):
+    await StartController(message).help()
+
+
+@dp.message_handler(Text(equals="Удалить все свои данные"))
+async def cmd_delete_user(message: types.Message):
     await StartController(message).help()
 
 
