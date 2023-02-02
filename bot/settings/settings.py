@@ -9,7 +9,7 @@ load_dotenv(dotenv_path)
 
 logging.basicConfig(
     format='%(levelname)s:%(message)s',
-    filename='../log/msg.log',
+    filename='./log/msg.log',
     filemode='w',
     level=logging.INFO
 )
