@@ -49,13 +49,20 @@ class User(MixinConfig):
 
 class TransactionModels(MixinConfig):
     """Класс сохранения транзакций"""
+    TYPE_TRANSACTION = (
+        ('-', 'Удаление'),
+        ('+', 'Добавление')
+    )
 
     user = ForeignKeyField(User, to_field='id')
-    type_transaction = CharField()
+    type_transaction = CharField(choices=TYPE_TRANSACTION)
     sum_transaction = IntegerField()
 
     class Meta:
         db_table = 'transaction'
+
+    def __str__(self):
+        return self.user.name
 
 
 def create_migrate():
