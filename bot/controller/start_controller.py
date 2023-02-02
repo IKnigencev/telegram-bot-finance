@@ -15,7 +15,13 @@ class StartController(BaseController):
 
     async def start(self) -> types.Message:
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        buttons = ["Меню", "Информация", "Об авторе"]
+        buttons = [
+            "Баланс",
+            "Аналитика",
+            "Как добавлять расходы/доходы",
+            "Информация",
+            "Об авторе"
+        ]
         keyboard.add(*buttons)
         text_message = START_TEXT.substitute(**self.data_user)
         await self.input_message.answer(text_message, reply_markup=keyboard)

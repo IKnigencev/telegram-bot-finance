@@ -12,16 +12,23 @@ from peewee import (
     CharField,
     DateTimeField,
     ForeignKeyField,
+    DecimalField,
     PostgresqlDatabase,
     SqliteDatabase
 )
 
 from settings.settings import ENV
 
+
 if ENV == "develop":
-    db = SqliteDatabase('./bot/my_project.db')
+    db = SqliteDatabase('../bot/my_project.db')
 else:
     db = PostgresqlDatabase()
+
+
+CURRENCY_TYPE = (
+    ("ru", "рубль")
+)
 
 
 class MixinConfig(Model):
@@ -47,6 +54,27 @@ class User(MixinConfig):
         return self.name
 
 
+class BalanceModels(MixinConfig):
+    """Класс сохранения баланса клиента"""
+    user = ForeignKeyField(
+        User,
+        unique=True,
+        related_name='balance'
+    )
+    money = DecimalField()
+    currency = CharField(
+        max_length=3,
+        choices=CURRENCY_TYPE,
+        default="ru"
+    )
+
+    class Meta:
+        db_table = 'balance'
+
+    def __str__(self):
+        return f"{self.user.id} - {self.money}"
+
+
 class TransactionModels(MixinConfig):
     """Класс сохранения транзакций"""
     TYPE_TRANSACTION = (
@@ -54,9 +82,14 @@ class TransactionModels(MixinConfig):
         ('+', 'Добавление')
     )
 
-    user = ForeignKeyField(User, to_field='id')
+    balance = ForeignKeyField(BalanceModels, related_name="transactions")
     type_transaction = CharField(choices=TYPE_TRANSACTION)
-    sum_transaction = IntegerField()
+    sum_transaction = DecimalField()
+    currency = CharField(
+        max_length=3,
+        choices=CURRENCY_TYPE,
+        default="ru"
+    )
 
     class Meta:
         db_table = 'transaction'
@@ -67,7 +100,7 @@ class TransactionModels(MixinConfig):
 
 def create_migrate():
     db.connect()
-    db.create_tables([User, TransactionModels])
+    db.create_tables([User, BalanceModels, TransactionModels])
     db.close()
 
 

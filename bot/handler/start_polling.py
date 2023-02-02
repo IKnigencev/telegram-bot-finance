@@ -2,7 +2,7 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.dispatcher.filters import Text
 
-from settings.settings import TOKEN_BOT
+from settings.settings import TOKEN_BOT, logging
 from controller.start_controller import StartController
 from handler import (
     info_request,
@@ -17,6 +17,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=["start"])
 async def cmd_start(message: types.Message):
+    logging.info(message, type(message))
     await StartController(message, define_user=True).start()
 
 
@@ -30,10 +31,15 @@ async def cmd_delete_user(message: types.Message):
     await StartController(message).help()
 
 
+@dp.message_handler(Text(equals="Лиза"))
+async def cmd_delser(message: types.Message):
+    await message.answer("Люблю лизку жопу больше!!!!!!")
+
+
 async def main():
     info_request.setup(dp)
     balance_request.setup(dp)
-    analystics_request.setup(dp)
+    analystics_request.setup(dp, bot)
     await dp.start_polling(bot)
 
 
