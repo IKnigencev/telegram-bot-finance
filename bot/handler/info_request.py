@@ -13,6 +13,17 @@ async def cmd_about(message: types.Message):
     await InfoController(message).about()
 
 
+async def cmd_how_add_delete(message: types.Message):
+    await InfoController(message).how_add_delete()
+
+
 def setup(dp: Dispatcher):
-    dp.register_message_handler(cmd_info, Text(equals="Информация"))
-    dp.register_message_handler(cmd_about, Text(equals="Об авторе"))
+    dp.register_message_handler(
+        cmd_info, Text(equals="Как добавлять расходы/доходы")
+    )
+    dp.register_message_handler(
+        cmd_info, Text(equals="Информация")
+    )
+    dp.register_message_handler(
+        cmd_about, Text(equals="Об авторе")
+    )

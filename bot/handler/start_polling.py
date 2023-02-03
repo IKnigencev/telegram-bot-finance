@@ -31,14 +31,9 @@ async def cmd_delete_user(message: types.Message):
     await StartController(message).help()
 
 
-@dp.message_handler(Text(equals="Лиза"))
-async def cmd_delser(message: types.Message):
-    await message.answer("Люблю лизку жопу больше!!!!!!")
-
-
 async def main():
     info_request.setup(dp)
-    balance_request.setup(dp)
+    balance_request.setup(dp, bot)
     analystics_request.setup(dp, bot)
     await dp.start_polling(bot)
 
