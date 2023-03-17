@@ -3,7 +3,7 @@ from models.models import User
 
 class BaseController:
     """Базовый класс обработки событий"""
-    def __init__(self, attr, define_user=None) -> None:
+    def __init__(self, attr, define_user: bool = False) -> None:
         self.input_message = attr
         if define_user:
             self.user = User.get_or_create(

@@ -20,7 +20,8 @@ class StartController(BaseController):
             "Аналитика",
             "Как добавлять расходы/доходы",
             "Информация",
-            "Об авторе"
+            "Об авторе",
+            "Отменить"
         ]
         keyboard.add(*buttons)
         text_message = START_TEXT.substitute(**self.data_user)

@@ -33,7 +33,7 @@ async def cmd_delete_user(message: types.Message):
 
 async def main():
     info_request.setup(dp)
-    balance_request.setup(dp, bot)
+    balance_request.setup(dp)
     analystics_request.setup(dp, bot)
     await dp.start_polling(bot)
 

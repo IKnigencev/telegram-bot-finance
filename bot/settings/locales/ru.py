@@ -6,6 +6,30 @@ START_TEXT = Template(
     + " чтобы помочь тебе следить за твоими расходами и доходами"
 )
 
+BALANCE_TEXT = Template(
+    "<b>Ваш баланс:</b> $balance\n\n"
+)
+
+ADD_TEXT = Template(
+    "Внесен доход $add\n"
+    + "ваш баланс равен: $balance"
+)
+
+DELETE_TEXT = Template(
+    "Внесен расход $add\n"
+    + "ваш баланс равен: $balance"
+)
+
+REMOVE_ACTION = Template(
+    "Отменено последнее действие $type\n"
+    + "на сумму $last_action\n\n"
+    + "Ваш баланс: $balance"
+)
+
+SET_BAlANCE_TEXT = Template(
+    "Установлен баланс $balance"
+)
+
 HELP_TEXT = (
     "<b>Этот бот предназначен для анализа расходов и доходов.</b>\n\n"
     + "Чтобы узнать как взаимодействовать с ботом введите"
@@ -25,8 +49,12 @@ INFO_TEXT = (
 )
 
 ABOUT_TEXT = (
-    "Привет, \n\nЯ здесь,"
-    + " чтобы помочь тебе следить за твоими расходами и доходами"
+    "Разработкой и поддержкой этого бота занимается \n"
+    + "Иван Книженцев @IKnigencev \n\n"
+    + "исходный код расположен здесь: "
+    + "<a href='https://github.com/IKnigencev/telegram-bot-finance'>"
+    + "GitHub</a>\n\n"
+    + "P.S. Можете поставить звездочку"
 )
 
 ANALYTICS_TEXT = (

@@ -12,11 +12,11 @@ def main():
     if sys.argv[1] == "migrate":
         create_migrate()
         print("Создание таблиц прошло успешно")
-        return
+        return None
     if sys.argv[1] == "runserver":
         init_database()
         start_polling()
-        return
+        return None
     print("Введите доступные аргументы")
 
 

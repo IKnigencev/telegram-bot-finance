@@ -1,43 +1,56 @@
 from aiogram import types
-from aiogram import Dispatcher, Bot
+from aiogram import Dispatcher
 from aiogram.dispatcher.filters import Text
 
 from controller.balance_controller import BalanceController
 
 
 async def cmd_balance(message: types.Message):
-    await BalanceController(message).balance()
+    await BalanceController(message, define_user=True).balance()
 
 
-async def cmd_balance_buttons(callback_query: types.CallbackQuery):
-    await BalanceController(callback_query).balance_buttons(BOT)
+async def cmd_set_balance(message: types.Message):
+    await BalanceController(message, define_user=True).set_balance()
 
 
 async def cmd_add_sum(message: types.Message):
-    await BalanceController(message).add_sum()
+    await BalanceController(message, define_user=True).add_sum()
 
 
-async def cmd_delete_sum(message: types.Message):
-    await BalanceController(message).delete_sum()
+async def cmd_delete_sum_hypen(message: types.Message):
+    await BalanceController(message, define_user=True).delete_sum()
+
+
+async def cmd_delete_sum_em_dash(message: types.Message):
+    await BalanceController(message, define_user=True).delete_sum()
 
 
 async def cmd_remove_action(message: types.Message):
-    await BalanceController(message).remove_action()
+    await BalanceController(message, define_user=True).remove_action()
 
 
-def setup(dp: Dispatcher, bot: Bot):
-    global BOT
-    BOT = bot
-
+def setup(dp: Dispatcher):
     dp.register_message_handler(
-        cmd_balance, Text(equals="Баланс"))
+        cmd_balance,
+        Text(equals="Баланс")
+    )
     dp.register_message_handler(
-        cmd_remove_action, Text(equals="Отменить последнее действие"))
+        cmd_remove_action,
+        Text(equals="Отменить")
+    )
     dp.register_message_handler(
-        cmd_add_sum, Text(startswith="++"))
+        cmd_add_sum,
+        Text(startswith="++")
+    )
     dp.register_message_handler(
-        cmd_delete_sum, Text(startswith="--"))
-    dp.register_callback_query_handler(
-        cmd_balance_buttons,
-        lambda c: c.data and c.data.startswith('balance')
+        cmd_delete_sum_hypen,
+        Text(startswith="—")
+    )
+    dp.register_message_handler(
+        cmd_delete_sum_em_dash,
+        Text(startswith="--")
+    )
+    dp.register_message_handler(
+        cmd_set_balance,
+        Text(startswith="==")
     )

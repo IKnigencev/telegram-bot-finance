@@ -10,7 +10,10 @@ async def cmd_analytics(message: types.Message):
 
 
 async def cmd_response_analytics_buttons(callback_query: types.CallbackQuery):
-    await AnalyticsController(callback_query).response_analytics_buttons(BOT)
+    await AnalyticsController(
+        callback_query,
+        define_user=True
+    ).response_analytics_buttons(BOT)
 
 
 def setup(dp: Dispatcher, bot: Bot):

@@ -19,7 +19,7 @@ async def cmd_how_add_delete(message: types.Message):
 
 def setup(dp: Dispatcher):
     dp.register_message_handler(
-        cmd_info, Text(equals="Как добавлять расходы/доходы")
+        cmd_how_add_delete, Text(equals="Как добавлять расходы/доходы")
     )
     dp.register_message_handler(
         cmd_info, Text(equals="Информация")
