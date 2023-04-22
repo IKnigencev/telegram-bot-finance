@@ -14,17 +14,24 @@ from peewee import (
     DateTimeField,
     ForeignKeyField,
     DecimalField,
-    PostgresqlDatabase
+    PostgresqlDatabase,
+    SqliteDatabase
 )
 
+from settings.settings import ENV
 
-db = PostgresqlDatabase(
-    os.getenv('DB_NAME', default='postgres'),
-    user=os.getenv('POSTGRES_USER', default='postgres'),
-    password=os.getenv('POSTGRES_PASSWORD', default='postgres'),
-    host=os.getenv('DB_HOST', default='postgres'),
-    port=os.getenv('DB_PORT', default='5432')
-)
+if ENV == "develop":
+    db = PostgresqlDatabase(
+        os.getenv('DB_NAME', default='postgres'),
+        user=os.getenv('POSTGRES_USER', default='postgres'),
+        password=os.getenv('POSTGRES_PASSWORD', default='postgres'),
+        host=os.getenv('DB_HOST', default='postgres'),
+        port=os.getenv('DB_PORT', default='5432')
+    )
+else:
+    db = SqliteDatabase(
+        "./dev.db"
+    )
 
 
 CURRENCY_TYPE = (
@@ -51,7 +58,7 @@ class User(MixinConfig):
     class Meta:
         db_table = 'user'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -77,7 +84,7 @@ class BalanceModels(MixinConfig):
     class Meta:
         db_table = 'balance'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.user.id} - {self.money}"
 
 
@@ -105,15 +112,15 @@ class TransactionModels(MixinConfig):
     class Meta:
         db_table = 'transaction'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.sum_transaction
 
 
-def create_migrate():
+def create_migrate() -> None:
     db.connect()
     db.create_tables([User, BalanceModels, TransactionModels])
 
 
-def init_database():
+def init_database() -> None:
     db.connect()
     db.rollback()

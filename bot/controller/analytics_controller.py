@@ -22,12 +22,12 @@ class AnalyticsController(BaseController):
                 callback_data="btn_income_month"
             ),
             types.InlineKeyboardButton(
-                "Средняя трата в день",
-                callback_data="btn_average_spending_per_day"
+                "Средняя трата в день за месяц",
+                callback_data="btn_average_spending_per_day_month"
             ),
             types.InlineKeyboardButton(
-                "Средняя трата в месяц",
-                callback_data="btn_average_spending_per_month"
+                "Средняя трата в день за месяц",
+                callback_data="btn_average_income_per_day_month"
             )
         ]
         keyboard.add(*buttons)

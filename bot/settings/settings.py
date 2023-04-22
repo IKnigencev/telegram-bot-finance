@@ -14,4 +14,4 @@ TOKEN_BOT = getenv("TOKEN")
 
 # Переменная определяет базу данных
 # для разработки SQLite, для production PostgresSQL
-ENV = "develop"
+ENV =  getenv("TOKEN", "develop")

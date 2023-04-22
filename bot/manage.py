@@ -5,7 +5,7 @@ from handler.start_polling import start_polling
 from models.models import init_database, create_migrate
 
 
-def main():
+def main() -> None:
     if len(sys.argv) <= 1:
         print("Введите аргумент один из возможных")
         return None
