@@ -1,5 +1,4 @@
-from aiogram import types
-from aiogram import Dispatcher, Bot
+from aiogram import types, Dispatcher, Bot
 from aiogram.dispatcher.filters import Text
 
 from controller.analytics_controller import AnalyticsController

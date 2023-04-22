@@ -1,5 +1,4 @@
-from aiogram import types
-from aiogram import Bot
+from aiogram import types, Bot
 
 from controller.base_conroller import BaseController
 from services.analytics_services import AnalyticsServices

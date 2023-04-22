@@ -1,7 +1,6 @@
 import datetime
 from decimal import Decimal
 
-from settings.settings import logging
 from settings.locales.ru import UNKNOWN_BTN
 from models.models import TransactionModels
 
@@ -17,7 +16,7 @@ class AnalyticsServices:
 
     def get_analytics(self) -> str:
         func = self.__button_definition(self.input_data.data)
-        data_from_func = getattr(self, func)()
+        data_from_func = "{:.2f}".format(getattr(self, func)())
         return data_from_func
 
     def _expenses_per_month(self) -> Decimal:
@@ -55,15 +54,15 @@ class AnalyticsServices:
         start_date, end_date = self.__is_transaction_appropriate()
         transactions = balance.transactions.where(
             (TransactionModels.type_transaction == type_transaction)
-            & (TransactionModels.created.between(start_date, end_date))
+             & (TransactionModels.created > end_date) & (TransactionModels.created < start_date)
         )
-        result = 0
+        result = Decimal(0)
         for transaction in transactions.select():
-            result += transaction.sum_transaction
+            result += Decimal(transaction.sum_transaction)
         return result
 
     def __is_transaction_appropriate(self):
         today = datetime.datetime.now()
-        diff = today - datetime.timedelta(30)
+        diff = today - datetime.timedelta(self.MONTH_DAYS)
         end_date = diff
         return today, end_date

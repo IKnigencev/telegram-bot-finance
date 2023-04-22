@@ -4,19 +4,27 @@ import sys
 from handler.start_polling import start_polling
 from models.models import init_database, create_migrate
 
+def migrate() -> None:
+    """Обновление таблиц в БД."""
+    create_migrate()
+    print("Создание таблиц прошло успешно")
+
+def runserver() -> None:
+    """Запуск сервера."""
+    init_database()
+    start_polling()
+
 
 def main() -> None:
     if len(sys.argv) <= 1:
         print("Введите аргумент один из возможных")
-        return None
+        return
     if sys.argv[1] == "migrate":
-        create_migrate()
-        print("Создание таблиц прошло успешно")
-        return None
+        migrate()
+        return
     if sys.argv[1] == "runserver":
-        init_database()
-        start_polling()
-        return None
+        runserver()
+        return
     print("Введите доступные аргументы")
 
 

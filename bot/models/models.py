@@ -4,7 +4,6 @@
 - Подключение к бд;
 - Определение основных моделей бд;
 """
-import os
 import datetime
 
 from peewee import (
@@ -18,19 +17,26 @@ from peewee import (
     SqliteDatabase
 )
 
-from settings.settings import ENV
+from settings.settings import (
+    ENV,
+    DB_NAME,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    DB_HOST,
+    DB_PORT
+)
 
 if ENV == "develop":
-    db = PostgresqlDatabase(
-        os.getenv('DB_NAME', default='postgres'),
-        user=os.getenv('POSTGRES_USER', default='postgres'),
-        password=os.getenv('POSTGRES_PASSWORD', default='postgres'),
-        host=os.getenv('DB_HOST', default='postgres'),
-        port=os.getenv('DB_PORT', default='5432')
-    )
-else:
     db = SqliteDatabase(
         "./dev.db"
+    )
+else:
+    db = PostgresqlDatabase(
+        DB_NAME,
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD,
+        host=DB_HOST,
+        port=DB_PORT
     )
 
 

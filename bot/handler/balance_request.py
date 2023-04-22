@@ -1,5 +1,4 @@
-from aiogram import types
-from aiogram import Dispatcher
+from aiogram import types, Dispatcher
 from aiogram.dispatcher.filters import Text
 
 from controller.balance_controller import BalanceController

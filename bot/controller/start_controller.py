@@ -1,9 +1,7 @@
 from aiogram import types
-# from aiogram.types import message
 
 from settings.locales.ru import START_TEXT, HELP_TEXT
 from controller.base_conroller import BaseController
-# from settings.settings import logging
 
 
 class StartController(BaseController):
